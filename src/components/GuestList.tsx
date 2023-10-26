@@ -1,5 +1,5 @@
 interface ChildProps {
-    guestList?: [];
+    guestList?: any[];
 }
 
 const GuestList: React.FC<ChildProps> = ({ guestList }) => {
