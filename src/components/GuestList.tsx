@@ -1,13 +1,13 @@
 interface ChildProps {
-    guestList: [];
+    guestList?: [];
 }
 
 const GuestList: React.FC<ChildProps> = ({ guestList }) => {
     return (
         <ul>
-            {guestList.map((guest) => (
-                <li>{guest}</li>
-            ))}
+            {guestList
+                ? guestList.map((guest) => <li>{guest}</li>)
+                : "No guests."}
         </ul>
     );
 };

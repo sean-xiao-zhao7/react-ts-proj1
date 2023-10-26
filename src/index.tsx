@@ -1,13 +1,8 @@
 import ReactDOM from "react-dom";
-import { Parent } from "./components/Parent";
+import { Reservations } from "./components/Reservations";
 
 const App = () => {
-    return (
-        <>
-            <h1>React Typescript Project 1</h1>
-            <Parent />
-        </>
-    );
+    return <Reservations />;
 };
 
 ReactDOM.render(<App />, document.querySelector("#root"));
