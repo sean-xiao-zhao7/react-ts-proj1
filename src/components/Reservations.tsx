@@ -20,11 +20,11 @@ export const Reservations = () => {
             <input
                 type="text"
                 value={newGuest}
-                placeholder="New guest"
+                placeholder="New search"
                 onChange={(e) => setNewGuest(e.target.value)}
                 ref={ref}
             />
-            <button onClick={addGuestHandler}>Add guest</button>
+            <button onClick={addGuestHandler}>Search repositories</button>
             <GuestList guestList={guestList} />
         </>
     );

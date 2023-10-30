@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface RepositoriesState {
     loading: boolean;
@@ -23,10 +24,10 @@ export const repositoriesSlice = createSlice({
             // immutable state based off those changes
             state.loading = true;
         },
-        searchSuccess: (state, action) => {
+        searchSuccess: (state, action: PayloadAction<string[]>) => {
             state.data = action.payload;
         },
-        searchError: (state, action) => {
+        searchError: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
         },
     },
