@@ -10,9 +10,14 @@ interface RepositoriesState {
     data: string[];
 }
 
+interface RepositoriesAction {
+    type: string;
+    payload?: any;
+}
+
 const repositoriesReducer = (
     state: RepositoriesState,
-    action: any
+    action: RepositoriesAction
 ): RepositoriesState => {
     switch (action.type) {
         case actionTypes.search:
