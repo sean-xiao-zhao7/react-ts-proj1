@@ -1,16 +1,24 @@
 import { useRef, useState } from "react";
+
 import GuestList from "./GuestList";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { searchStart, searchSuccess } from "../redux/slices/repositoriesSlice";
 
 export const Reservations = () => {
     const ref = useRef<HTMLInputElement>(null);
     const [guestList, setGuestList] = useState<string[]>([]);
     const [newGuest, setNewGuest] = useState<string>("");
+    const repositoriesData = useAppSelector((state) => state.repositories.data);
+    const dispatch = useAppDispatch();
 
-    const addGuestHandler = () => {
+    // useAppDispatch
+    // useAppSelector
+    // searchStart
+    // searchSuccess
+
+    const searchStartHandler = () => {
         if (newGuest) {
-            setGuestList((prevState) => {
-                return [...prevState, newGuest];
-            });
+            dispatch(searchStart(newGuest));
             setNewGuest("");
         }
     };
@@ -24,7 +32,7 @@ export const Reservations = () => {
                 onChange={(e) => setNewGuest(e.target.value)}
                 ref={ref}
             />
-            <button onClick={addGuestHandler}>Search repositories</button>
+            <button onClick={searchStartHandler}>Search repositories</button>
             <GuestList guestList={guestList} />
         </>
     );
