@@ -59,7 +59,7 @@ export const searchStartAction =
                         text: searchTerm,
                     },
                 });
-                dispatch(searchSuccess(result.data));
+                dispatch(searchSuccess(result.data.objects));
             } catch (err: any) {
                 dispatch(searchError(err.message));
             }
