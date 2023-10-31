@@ -33,10 +33,12 @@ export const repositoriesSlice = createSlice({
         },
         searchSuccess: (state, action: PayloadAction<string[]>) => {
             state.data = action.payload;
+            state.loading = false;
             state.searchTerm = "";
         },
         searchError: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
+            state.loading = false;
         },
     },
 });
@@ -59,7 +61,7 @@ export const searchStartAction =
                 });
                 dispatch(searchSuccess(result.data));
             } catch (err: any) {
-                dispatch(searchError(err));
+                dispatch(searchError(err.message));
             }
         }
     };
