@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 
 import { Reservations } from "./components/Reservations";
@@ -8,9 +8,9 @@ const App = () => {
     return <Reservations />;
 };
 
-ReactDOM.render(
+const root = createRoot(document.querySelector("#root") as Element);
+root.render(
     <Provider store={store}>
         <App />
-    </Provider>,
-    document.querySelector("#root")
+    </Provider>
 );

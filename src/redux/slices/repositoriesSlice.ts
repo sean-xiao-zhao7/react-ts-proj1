@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../index";
+import axios from "axios";
+import { bu } from "../../a";
 
 interface RepositoriesState {
     loading: boolean;
@@ -40,13 +42,36 @@ export const repositoriesSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { searchStart, searchSuccess, searchError } =
-    repositoriesSlice.actions;
+const { searchStart, searchSuccess, searchError } = repositoriesSlice.actions;
 
 // Define a thunk that dispatches those action creators
-const searchStartAction =
+export const searchStartAction =
     (searchTerm: string) => async (dispatch: AppDispatch) => {
-        dispatch(searchStart(searchTerm));
+        if (!searchTerm) {
+            dispatch(searchError("No search term."));
+        } else {
+            dispatch(searchStart(searchTerm));
+            try {
+                const result = await axios.get(bu, {
+                    params: {
+                        text: searchTerm,
+                    },
+                });
+                dispatch(searchSuccess(result.data));
+            } catch (err: any) {
+                dispatch(searchError(err));
+            }
+        }
     };
+
+export const searchErrorAction =
+    (error: string) => async (dispatch: AppDispatch) => {
+        dispatch(searchError(error));
+    };
+
+// // Other code such as selectors can use the imported `RootState` type
+// export const repoData = (state: RootState) => state.repositories.data;
+// export const repoError = (state: RootState) => state.repositories.error;
+// export const repoLoading = (state: RootState) => state.repositories.loading;
 
 export default repositoriesSlice.reducer;

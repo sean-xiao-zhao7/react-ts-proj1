@@ -1,24 +1,19 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import GuestList from "./GuestList";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { searchStart, searchSuccess } from "../redux/slices/repositoriesSlice";
+import { searchStartAction } from "../redux/slices/repositoriesSlice";
 
 export const Reservations = () => {
-    const ref = useRef<HTMLInputElement>(null);
-    const [guestList, setGuestList] = useState<string[]>([]);
-    const [newGuest, setNewGuest] = useState<string>("");
-    const repositoriesData = useAppSelector((state) => state.repositories.data);
     const dispatch = useAppDispatch();
-
-    // useAppDispatch
-    // useAppSelector
-    // searchStart
-    // searchSuccess
+    const [newGuest, setNewGuest] = useState("");
+    const { data, error, loading } = useAppSelector(
+        (state) => state.repositories
+    );
 
     const searchStartHandler = () => {
         if (newGuest) {
-            dispatch(searchStart(newGuest));
+            dispatch(searchStartAction(newGuest));
             setNewGuest("");
         }
     };
@@ -30,10 +25,11 @@ export const Reservations = () => {
                 value={newGuest}
                 placeholder="New search"
                 onChange={(e) => setNewGuest(e.target.value)}
-                ref={ref}
             />
             <button onClick={searchStartHandler}>Search repositories</button>
-            <GuestList guestList={guestList} />
+            {loading && <h3>Loading</h3>}
+            {error && <h3>{error}</h3>}
+            {!error && !loading && <GuestList guestList={data} />}
         </>
     );
 };
