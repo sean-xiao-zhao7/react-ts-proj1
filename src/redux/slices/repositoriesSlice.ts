@@ -8,7 +8,7 @@ import { bu } from "../../a";
 interface RepositoriesState {
     loading: boolean;
     error: string | null;
-    data: string[];
+    data: any[];
     searchTerm: string;
 }
 
@@ -31,7 +31,7 @@ export const repositoriesSlice = createSlice({
             state.loading = true;
             state.searchTerm = action.payload;
         },
-        searchSuccess: (state, action: PayloadAction<string[]>) => {
+        searchSuccess: (state, action: PayloadAction<any[]>) => {
             state.data = action.payload;
             state.loading = false;
             state.searchTerm = "";

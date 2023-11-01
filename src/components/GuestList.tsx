@@ -6,7 +6,9 @@ const GuestList: React.FC<ChildProps> = ({ guestList }) => {
     return (
         <ul>
             {guestList
-                ? guestList.map((guest) => <li>{guest.package.name}</li>)
+                ? guestList.map((guest) => (
+                      <li key={guest.package.name}>{guest.package.name}</li>
+                  ))
                 : "No guests."}
         </ul>
     );
